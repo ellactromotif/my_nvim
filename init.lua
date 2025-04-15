@@ -155,7 +155,20 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     error('Error cloning lazy.nvim:\n' .. out)
   end
 end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+vim
+  .opt
+  .rtp
+  :prepend(lazypath)
+  -- VimTeX for latex in neovim
+  {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+    end,
+  }
 
 -- [[ Configure and install plugins ]]
 --
