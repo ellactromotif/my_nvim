@@ -155,20 +155,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     error('Error cloning lazy.nvim:\n' .. out)
   end
 end ---@diagnostic disable-next-line: undefined-field
-vim
-  .opt
-  .rtp
-  :prepend(lazypath)
-  -- VimTeX for latex in neovim
-  {
-    'lervag/vimtex',
-    lazy = false, -- we don't want to lazy load VimTeX
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'zathura'
-    end,
-  }
+vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 --
@@ -190,6 +177,7 @@ require('lazy').setup({
   -- keys can be used to configure plugin behavior/loading/etc.
   --
   -- Use `opts = {}` to force a plugin to be loaded.
+
   -- empty nvim-tree setup
   {
     'nvim-tree/nvim-tree.lua',
@@ -212,6 +200,17 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+
+  -- VimTeX for latex in neovim
+  {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
